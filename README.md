@@ -42,7 +42,7 @@ How to Contribute
 
 Contact & Community
 
-Coming soon.
+https://discord.gg/CQBvwp2v
 
 Open Source · Forever Free · For All of Humanity
 
@@ -95,7 +95,7 @@ Cara Berkontribusi
 
 Kontak dan Komunitas
 
-Segera hadir.
+https://discord.gg/CQBvwp2v
 
 
 Open Source · Gratis Selamanya · Untuk Seluruh Umat Manusia
