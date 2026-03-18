@@ -3,429 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lumina Daily Card</title>
+<title>Lumina</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root[data-theme="dark"] {
-    --bg: #0e0e10;
-    --bg2: #16161a;
-    --bg3: #1e1e24;
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e8e0;
-    --text2: #888880;
-    --text3: #555550;
-    --gold: #c9a84c;
-    --gold2: #e8c97a;
-    --glow: rgba(201,168,76,0.15);
+    --bg: #0e0e10; --bg2: #16161a; --bg3: #1e1e24;
+    --border: rgba(255,255,255,0.07); --text: #e8e8e0;
+    --text2: #888880; --text3: #555550;
+    --gold: #c9a84c; --gold2: #e8c97a; --glow: rgba(201,168,76,0.15);
   }
   :root[data-theme="light"] {
-    --bg: #f5f4ef;
-    --bg2: #eeede8;
-    --bg3: #e5e4de;
-    --border: rgba(0,0,0,0.08);
-    --text: #1a1a14;
-    --text2: #666660;
-    --text3: #999990;
-    --gold: #a07830;
-    --gold2: #c09040;
-    --glow: rgba(160,120,48,0.1);
+    --bg: #f5f4ef; --bg2: #eeede8; --bg3: #e5e4de;
+    --border: rgba(0,0,0,0.08); --text: #1a1a14;
+    --text2: #666660; --text3: #999990;
+    --gold: #a07830; --gold2: #c09040; --glow: rgba(160,120,48,0.1);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    -webkit-overflow-scrolling: touch;
-    transition: background 0.4s, color 0.4s;
-  }
-
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 20px 40px;
-  }
-
-  /* NAV */
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 32px;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo-icon {
-    width: 32px;
-    height: 28px;
-    color: var(--gold);
-  }
-
-  .logo-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 3px;
-  }
-
-  .theme-toggle {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: var(--bg2);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
-
+  html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-overflow-scrolling: touch; transition: background 0.4s, color 0.4s; }
+  .container { max-width: 480px; margin: 0 auto; padding: 0 20px 40px; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 32px; height: 28px; color: var(--gold); }
+  .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+  .theme-toggle { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; }
   .theme-toggle:hover { border-color: var(--gold); }
-
-  /* DATE + COUNTDOWN */
-  .date-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  }
-
-  .date-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--text3);
-    font-weight: 300;
-  }
-
-  .countdown {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 1px;
-  }
-
-  .countdown-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--gold);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  /* CARD */
-  .card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    animation: fadeUp 0.5s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-header {
-    padding: 24px 24px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .card-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-
-  .category-tag {
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.3);
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: var(--glow);
-  }
-
-  .card-num {
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: var(--text3);
-  }
-
-  .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .card-subtitle {
-    font-size: 12px;
-    color: var(--text3);
-    letter-spacing: 0.5px;
-    font-weight: 300;
-  }
-
-  /* PROGRESS BAR */
-  .read-progress {
-    height: 2px;
-    background: var(--border);
-    margin: 0 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .read-progress-bar {
-    height: 100%;
-    background: var(--gold);
-    width: 0%;
-    transition: width 0.3s;
-  }
-
-  /* BODY */
-  .card-body {
-    padding: 24px;
-  }
-
-  .read-time {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: var(--text3);
-    margin-bottom: 16px;
-  }
-
-  .body-text {
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--text2);
-    margin-bottom: 28px;
-    font-weight: 300;
-  }
-
-  .body-text strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  /* CONVERSATION POINTS */
-  .conv-label {
-    font-size: 9px;
-    letter-spacing: 2.5px;
-    color: var(--text3);
-    margin-bottom: 14px;
-    font-weight: 500;
-  }
-
-  .conv-points {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  .conv-point {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 14px;
-    background: var(--bg3);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .conv-point:hover {
-    border-color: var(--gold);
-    background: var(--glow);
-  }
-
-  .conv-point.copied::after {
-    content: 'Copied!';
-    position: absolute;
-    inset: 0;
-    background: var(--gold);
-    color: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    animation: fadeOut 1s ease forwards;
-  }
-
-  @keyframes fadeOut {
-    0% { opacity: 1; }
-    70% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-
-  .conv-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    color: var(--gold);
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .conv-text {
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.6;
-  }
-
-  /* SHARE ROW */
-  .share-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  .share-hint {
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 0.5px;
-  }
-
-  .share-btn {
-    background: var(--gold);
-    color: var(--bg);
-    border: none;
-    padding: 10px 18px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .share-btn:hover { background: var(--gold2); transform: scale(1.03); }
-
-  /* NEXT CARD TEASER */
-  .next-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    opacity: 0.5;
-    filter: blur(2px);
-    pointer-events: none;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .next-card::after {
-    content: 'New card in ' attr(data-time);
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    color: var(--text2);
-    background: rgba(0,0,0,0.3);
-    filter: blur(0);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-
-  .next-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    color: var(--text);
-  }
-
-  /* STREAK */
-  .streak-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .streak-icon {
-    font-size: 28px;
-  }
-
-  .streak-info {}
-
-  .streak-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--gold);
-  }
-
-  .streak-label {
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 1px;
-  }
-
-  .streak-days {
-    margin-left: auto;
-    display: flex;
-    gap: 4px;
-  }
-
-  .day-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-
+  .date-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .date-label { font-size: 11px; letter-spacing: 2px; color: var(--text3); font-weight: 300; }
+  .countdown { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+  .countdown-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 16px; animation: fadeUp 0.5s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .card-header { padding: 24px 24px 20px; border-bottom: 1px solid var(--border); }
+  .card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .category-tag { font-size: 9px; letter-spacing: 2px; color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 4px 10px; border-radius: 20px; background: var(--glow); }
+  .card-num { font-size: 10px; letter-spacing: 1px; color: var(--text3); }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; line-height: 1.2; color: var(--text); margin-bottom: 8px; }
+  .card-subtitle { font-size: 12px; color: var(--text3); letter-spacing: 0.5px; font-weight: 300; }
+  .read-progress { height: 2px; background: var(--border); margin: 0 24px; overflow: hidden; }
+  .read-progress-bar { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s; }
+  .card-body { padding: 24px; }
+  .read-time { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 1.5px; color: var(--text3); margin-bottom: 16px; }
+  .body-text { font-size: 14px; line-height: 1.85; color: var(--text2); margin-bottom: 28px; font-weight: 300; }
+  .body-text strong { color: var(--text); font-weight: 500; }
+  .conv-label { font-size: 9px; letter-spacing: 2.5px; color: var(--text3); margin-bottom: 14px; font-weight: 500; }
+  .conv-points { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .conv-point { display: flex; gap: 12px; align-items: flex-start; padding: 14px; background: var(--bg3); border-radius: 12px; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+  .conv-point:hover { border-color: var(--gold); background: var(--glow); }
+  .conv-point.copied::after { content: 'Copied!'; position: absolute; inset: 0; background: var(--gold); color: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; letter-spacing: 1px; animation: fadeOut 1s ease forwards; }
+  @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+  .conv-num { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold); line-height: 1; flex-shrink: 0; margin-top: 1px; }
+  .conv-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .share-row { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); }
+  .share-hint { font-size: 11px; color: var(--text3); }
+  .share-btn { background: var(--gold); color: var(--bg); border: none; padding: 10px 18px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'DM Sans', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+  .share-btn:hover { background: var(--gold2); }
+  .streak-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .streak-icon { font-size: 28px; }
+  .streak-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--gold); }
+  .streak-label { font-size: 11px; color: var(--text3); letter-spacing: 1px; }
+  .streak-days { margin-left: auto; display: flex; gap: 4px; }
+  .day-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
   .day-dot.active { background: var(--gold); }
   .day-dot.today { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+  .next-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .next-overlay { position: absolute; inset: 0; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 2px; color: var(--text2); }
+  .next-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text); }
+  .next-label { font-size: 10px; letter-spacing: 2px; color: var(--text3); margin-bottom: 6px; }
 </style>
 </head>
 <body>
-
 <div class="container">
-
   <nav>
     <div class="nav-logo">
       <div class="logo-icon">
@@ -447,64 +95,29 @@
       </div>
       <span class="logo-text">LUMINA</span>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">☀️</span>
-    </button>
+    <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">☀️</span></button>
   </nav>
 
-  <!-- DATE ROW -->
   <div class="date-row">
-    <span class="date-label" id="dateLabel">TODAY</span>
-    <div class="countdown">
-      <div class="countdown-dot"></div>
-      <span id="countdown">Refreshes in 12:34:56</span>
-    </div>
+    <span class="date-label" id="dateLabel"></span>
+    <div class="countdown"><div class="countdown-dot"></div><span id="countdown"></span></div>
   </div>
 
-  <!-- MAIN CARD -->
   <div class="card">
     <div class="card-header">
       <div class="card-meta">
-        <span class="category-tag">PSYCHOLOGY</span>
-        <span class="card-num">#001</span>
+        <span class="category-tag" id="cardCategory"></span>
+        <span class="card-num" id="cardNum"></span>
       </div>
-      <h2 class="card-title">The Dunning Kruger Effect</h2>
-      <p class="card-subtitle">Why the least skilled are often the most confident</p>
+      <h2 class="card-title" id="cardTitle"></h2>
+      <p class="card-subtitle" id="cardSubtitle"></p>
     </div>
-
-    <div class="read-progress">
-      <div class="read-progress-bar" id="progressBar"></div>
-    </div>
-
+    <div class="read-progress"><div class="read-progress-bar" id="progressBar"></div></div>
     <div class="card-body">
-      <div class="read-time">
-        <span>⏱</span>
-        <span>60 SECOND READ</span>
-      </div>
-
-      <p class="body-text">
-        Orang yang paling tidak tahu sesuatu justru paling percaya diri. Sementara orang yang benar benar ahli malah sering ragu dan mempertanyakan diri sendiri.<br><br>
-        Ini namanya <strong>Dunning Kruger Effect</strong>, fenomena psikologi yang ditemukan tahun 1999 oleh David Dunning dan Justin Kruger. Mereka menemukan bahwa orang dengan kemampuan rendah cenderung overestimate kemampuan mereka sendiri, karena mereka tidak punya cukup pengetahuan untuk menyadari betapa banyak yang belum mereka tahu.<br><br>
-        Semakin kamu belajar, semakin kamu sadar betapa luasnya yang belum kamu kuasai. Dan justru di situlah letak kebijaksanaan yang sesungguhnya.
-      </p>
-
+      <div class="read-time"><span>⏱</span><span>60 SECOND READ</span></div>
+      <p class="body-text" id="cardBody"></p>
       <p class="conv-label">3 CONVERSATION POINTS — TAP TO COPY</p>
-
-      <div class="conv-points">
-        <div class="conv-point" onclick="copyText(this, 'Pernah noticed ngga, orang yang paling vocal di diskusi sering justru yang paling kurang paham? Ada nama ilmiahnya, Dunning Kruger Effect.')">
-          <span class="conv-num">1</span>
-          <p class="conv-text">"Pernah noticed ngga, orang yang paling vocal di diskusi sering justru yang paling kurang paham? Ada nama ilmiahnya."</p>
-        </div>
-        <div class="conv-point" onclick="copyText(this, 'Ada penelitian yang bilang confidence dan competence itu sering berbanding terbalik di level awal. Makin sedikit yang kamu tahu, makin yakin kamu merasa benar.')">
-          <span class="conv-num">2</span>
-          <p class="conv-text">"Ada penelitian yang bilang confidence dan competence itu sering berbanding terbalik. Makin sedikit yang kamu tahu, makin yakin kamu merasa benar."</p>
-        </div>
-        <div class="conv-point" onclick="copyText(this, 'Makanya expert sejati biasanya lebih banyak diam dan mendengarkan. Mereka tahu betapa banyak yang mereka tidak tahu.')">
-          <span class="conv-num">3</span>
-          <p class="conv-text">"Makanya expert sejati biasanya lebih banyak diam dan mendengarkan. Mereka tahu betapa banyak yang mereka belum tahu."</p>
-        </div>
-      </div>
-
+      <div class="conv-points" id="convPoints"></div>
       <div class="share-row">
         <span class="share-hint">Share today's card</span>
         <button class="share-btn" onclick="shareCard()">SHARE ↗</button>
@@ -512,73 +125,85 @@
     </div>
   </div>
 
-  <!-- STREAK -->
   <div class="streak-card">
     <span class="streak-icon">🔥</span>
-    <div class="streak-info">
-      <div class="streak-num">1</div>
-      <div class="streak-label">DAY STREAK</div>
-    </div>
-    <div class="streak-days">
-      <div class="day-dot"></div>
-      <div class="day-dot"></div>
-      <div class="day-dot"></div>
-      <div class="day-dot"></div>
-      <div class="day-dot"></div>
-      <div class="day-dot"></div>
-      <div class="day-dot today"></div>
-    </div>
+    <div><div class="streak-num">1</div><div class="streak-label">DAY STREAK</div></div>
+    <div class="streak-days" id="streakDays"></div>
   </div>
 
-  <!-- NEXT CARD TEASER -->
-  <div class="next-card" data-time="tomorrow">
+  <div class="next-card">
     <div>
-      <div style="font-size:10px;letter-spacing:2px;color:var(--text3);margin-bottom:6px;">TOMORROW</div>
-      <div class="next-title">The Butterfly Effect</div>
+      <div class="next-label">TOMORROW</div>
+      <div class="next-title" id="nextTitle"></div>
     </div>
     <span style="color:var(--text3);font-size:20px;">→</span>
+    <div class="next-overlay">New card tomorrow</div>
   </div>
-
 </div>
 
 <script>
-// THEME
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+const cards = [
+  { category:"PSYCHOLOGY", num:"#001", title:"The Dunning Kruger Effect", subtitle:"Why the least skilled are often the most confident", body:`Orang yang paling tidak tahu sesuatu justru paling percaya diri. Sementara orang yang benar benar ahli malah sering ragu dan mempertanyakan diri sendiri.<br><br>Ini namanya <strong>Dunning Kruger Effect</strong>, fenomena psikologi yang ditemukan tahun 1999 oleh David Dunning dan Justin Kruger. Mereka menemukan bahwa orang dengan kemampuan rendah cenderung overestimate kemampuan mereka sendiri, karena mereka tidak punya cukup pengetahuan untuk menyadari betapa banyak yang belum mereka tahu.<br><br>Semakin kamu belajar, semakin kamu sadar betapa luasnya yang belum kamu kuasai. Dan justru di situlah letak kebijaksanaan yang sesungguhnya.`, points:[{copy:"Pernah noticed ngga, orang yang paling vocal di diskusi sering justru yang paling kurang paham? Ada nama ilmiahnya, Dunning Kruger Effect.",text:"\"Pernah noticed ngga, orang yang paling vocal di diskusi sering justru yang paling kurang paham? Ada nama ilmiahnya.\""},{copy:"Ada penelitian yang bilang confidence dan competence itu sering berbanding terbalik di level awal.",text:"\"Ada penelitian yang bilang confidence dan competence itu sering berbanding terbalik. Makin sedikit yang kamu tahu, makin yakin kamu merasa benar.\""},{copy:"Makanya expert sejati biasanya lebih banyak diam dan mendengarkan.",text:"\"Makanya expert sejati biasanya lebih banyak diam dan mendengarkan. Mereka tahu betapa banyak yang mereka belum tahu.\""}]},
+  { category:"PSYCHOLOGY", num:"#002", title:"The Bystander Effect", subtitle:"Why more witnesses means less help", body:`Semakin banyak orang yang menyaksikan seseorang dalam bahaya, semakin kecil kemungkinan ada yang menolong. Bukan karena mereka jahat, tapi karena semua orang menunggu orang lain untuk bertindak duluan.<br><br>Fenomena ini bernama <strong>Bystander Effect</strong>, ditemukan setelah kasus pembunuhan Kitty Genovese di New York 1964 yang disaksikan 38 tetangga tanpa satupun menelepon polisi.<br><br>Cara counter nya simpel: kalau kamu butuh bantuan di keramaian, tunjuk satu orang spesifik dan minta tolong langsung ke dia.`, points:[{copy:"Pernah nggak di situasi dimana semua orang diam padahal ada yang butuh bantuan? Itu bukan karena nggak peduli, ada nama ilmiahnya.",text:"\"Pernah nggak di situasi dimana semua orang diam padahal ada yang butuh bantuan? Itu bukan karena nggak peduli.\""},{copy:"Kalau pernah ragu bantu orang di tempat ramai karena pikir orang lain akan bantu, itu namanya Bystander Effect.",text:"\"Kalau pernah ragu bantu orang di tempat ramai karena pikir orang lain akan bantu, itu namanya Bystander Effect.\""},{copy:"Kalau butuh bantuan di keramaian, tunjuk satu orang spesifik. Jangan minta tolong ke semua orang sekaligus.",text:"\"Kalau butuh bantuan di keramaian, tunjuk satu orang spesifik. Jangan minta tolong ke semua orang sekaligus.\""}]},
+  { category:"ECONOMICS", num:"#003", title:"The Latte Factor", subtitle:"How small daily spending drains your wealth", body:`Kopi Rp 50.000 sehari terasa kecil. Tapi kalau dihitung, itu Rp 1.5 juta per bulan, Rp 18 juta per tahun.<br><br>Konsep ini disebut <strong>The Latte Factor</strong>, dipopulerkan oleh financial advisor David Bach. Intinya bukan soal kopinya, tapi tentang pengeluaran kecil yang berulang yang tidak pernah kita sadari sedang menguras tabungan kita secara perlahan.<br><br>Bukan gaji yang kurang, tapi kebocoran kecil yang tidak pernah dihitung.`, points:[{copy:"Pernah nggak ngerasa gaji habis tapi nggak tau kemana? Coba hitung pengeluaran harian yang kelihatan kecil.",text:"\"Pernah ngerasa gaji habis tapi nggak tau kemana? Coba hitung pengeluaran harian yang kelihatan kecil.\""},{copy:"Ada konsep namanya Latte Factor, pengeluaran Rp 50.000 per hari itu setara Rp 18 juta per tahun.",text:"\"Ada yang namanya Latte Factor. Pengeluaran Rp 50.000 per hari itu Rp 18 juta per tahun.\""},{copy:"Bukan soal nggak boleh beli kopi. Tapi soal sadar kemana uang kecil kamu pergi setiap harinya.",text:"\"Bukan soal nggak boleh beli kopi. Tapi soal sadar kemana uang kecil kamu pergi setiap harinya.\""}]},
+  { category:"SCIENCE", num:"#004", title:"The Overview Effect", subtitle:"Why every astronaut cries seeing Earth from space", body:`Setiap astronot yang pernah melihat bumi dari luar angkasa mengalami hal yang sama. Mereka menangis. Semua batas negara, semua konflik, semua masalah manusia tiba tiba terasa sangat kecil.<br><br>Fenomena ini disebut <strong>The Overview Effect</strong>, pertama kali didokumentasikan oleh Frank White tahun 1987. Bumi dari luar angkasa tidak punya garis batas. Hanya satu bola biru kecil yang rapuh di tengah kegelapan tak terbatas.<br><br>Kadang kita butuh mundur jauh untuk sadar betapa kecilnya masalah yang kita pikir besar.`, points:[{copy:"Tau nggak kenapa hampir semua astronot berubah cara pandangnya setelah balik ke bumi?",text:"\"Tau nggak kenapa hampir semua astronot berubah cara pandangnya setelah balik ke bumi?\""},{copy:"Bayangin lihat bumi dari luar angkasa. Semua masalah kamu tiba tiba kelihatan sangat kecil.",text:"\"Bayangin lihat bumi dari luar angkasa. Semua masalah kamu tiba tiba kelihatan sangat kecil.\""},{copy:"Perspektif adalah segalanya. Kadang kita butuh mundur jauh untuk sadar betapa kecilnya masalah yang kita pikir besar.",text:"\"Perspektif adalah segalanya. Kadang kita butuh mundur jauh untuk sadar betapa kecilnya masalah yang kita pikir besar.\""}]},
+  { category:"TECHNOLOGY", num:"#005", title:"The Filter Bubble", subtitle:"Why your social media feed is lying to you", body:`Algorithm media sosial tidak menampilkan dunia yang sebenarnya. Mereka menampilkan versi dunia yang mereka pikir ingin kamu lihat, berdasarkan apa yang pernah kamu like, share, dan tonton.<br><br>Hasilnya kamu hidup di dalam <strong>Filter Bubble</strong>, sebuah gelembung informasi yang hanya berisi orang orang yang setuju dengan kamu. Konsep ini dicetuskan oleh Eli Pariser tahun 2011.<br><br>Semakin lama kamu di media sosial, semakin sempit dunia yang kamu lihat tanpa kamu sadari.`, points:[{copy:"Pernah ngerasa semua orang di media sosial kamu punya pendapat yang sama? Itu bukan kebetulan, itu by design.",text:"\"Pernah ngerasa semua orang di media sosial kamu punya pendapat yang sama? Itu bukan kebetulan, itu by design.\""},{copy:"Algorithm sengaja hanya kasih kamu konten yang kamu suka supaya kamu makin lama di platform mereka. Namanya Filter Bubble.",text:"\"Algorithm sengaja hanya kasih kamu konten yang kamu suka. Namanya Filter Bubble.\""},{copy:"Cara keluar dari filter bubble: follow orang yang pendapatnya berbeda. Bukan buat setuju, tapi buat lihat dunia lebih lengkap.",text:"\"Cara keluar dari filter bubble: follow orang yang pendapatnya berbeda. Bukan buat setuju, tapi buat lihat dunia lebih lengkap.\""}]},
+  { category:"CULTURE", num:"#006", title:"Ikigai", subtitle:"The Japanese secret to a long and meaningful life", body:`Orang Jepang di Okinawa adalah salah satu populasi yang paling panjang umur di dunia. Salah satu rahasianya adalah konsep <strong>Ikigai</strong>, yang berarti "alasan untuk bangun pagi."<br><br>Ikigai adalah titik temu antara empat hal: apa yang kamu cintai, apa yang kamu kuasai, apa yang dibutuhkan dunia, dan apa yang bisa menghasilkan uang.<br><br>Ketika keempat lingkaran itu bertemu, di situlah letak ikigai kamu. Dan orang yang menemukan ikigai nya terbukti lebih sehat, lebih bahagia, dan lebih panjang umur.`, points:[{copy:"Orang Jepang punya konsep namanya Ikigai, alasan untuk bangun pagi. Ada penelitian yang buktikan dampaknya ke kesehatan.",text:"\"Orang Jepang punya konsep namanya Ikigai, alasan untuk bangun pagi. Ada penelitian yang buktikan dampaknya ke kesehatan.\""},{copy:"Kalau kerja keras tapi tetap nggak puas, mungkin kamu belum ketemu ikigai kamu.",text:"\"Kalau kerja keras tapi tetap nggak puas, mungkin kamu belum ketemu ikigai kamu.\""},{copy:"Apa yang akan kamu lakukan meski tidak dibayar? Jawabannya mungkin petunjuk ikigai kamu.",text:"\"Apa yang akan kamu lakukan meski tidak dibayar? Jawabannya mungkin petunjuk ikigai kamu.\""}]},
+  { category:"PSYCHOLOGY", num:"#007", title:"Survivorship Bias", subtitle:"Why success stories are misleading you", body:`Kita selalu dengar kisah sukses orang yang dropout kuliah lalu jadi miliarder. Tapi kita tidak pernah dengar kisah jutaan orang yang dropout dan gagal total.<br><br>Ini namanya <strong>Survivorship Bias</strong>, kecenderungan kita untuk hanya memperhatikan yang berhasil dan mengabaikan yang tidak.<br><br>Selama Perang Dunia II, militer Amerika hampir memperkuat bagian pesawat yang tertembak sampai matematikawan Abraham Wald menyadari sesuatu. Bagian yang tidak tertembak justru yang harus diperkuat, karena pesawat yang tertembak di sana tidak pernah kembali.`, points:[{copy:"Hati hati sama success story. Ada ribuan yang gagal dengan cara yang sama tapi tidak ada yang cerita tentang mereka.",text:"\"Hati hati sama success story. Ada ribuan yang gagal dengan cara yang sama tapi tidak ada yang cerita tentang mereka.\""},{copy:"Advice dari orang sukses sering tidak applicable. Mereka tidak tahu kenapa mereka berhasil, mereka hanya tahu bahwa mereka berhasil.",text:"\"Advice dari orang sukses sering tidak applicable. Mereka tidak tahu kenapa mereka berhasil.\""},{copy:"Sebelum ikuti jejak siapapun, tanya dulu: berapa banyak yang melakukan hal yang sama dan gagal?",text:"\"Sebelum ikuti jejak siapapun, tanya dulu: berapa banyak yang melakukan hal yang sama dan gagal?\""}]}
+];
+
+function getDayOfYear() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  return Math.floor((now - start) / 86400000);
 }
 
-// DATE
-const now = new Date();
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-US', options).toUpperCase();
+const todayIndex = getDayOfYear() % cards.length;
+const today = cards[todayIndex];
+const tomorrow = cards[(todayIndex + 1) % cards.length];
 
-// COUNTDOWN to midnight
+document.getElementById('cardCategory').textContent = today.category;
+document.getElementById('cardNum').textContent = today.num;
+document.getElementById('cardTitle').textContent = today.title;
+document.getElementById('cardSubtitle').textContent = today.subtitle;
+document.getElementById('cardBody').innerHTML = today.body;
+document.getElementById('nextTitle').textContent = tomorrow.title;
+
+const convContainer = document.getElementById('convPoints');
+today.points.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'conv-point';
+  div.innerHTML = `<span class="conv-num">${i+1}</span><p class="conv-text">${p.text}</p>`;
+  div.onclick = () => copyText(div, p.copy);
+  convContainer.appendChild(div);
+});
+
+const streakContainer = document.getElementById('streakDays');
+for (let i = 0; i < 7; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'day-dot' + (i === 6 ? ' today' : i >= 5 ? ' active' : '');
+  streakContainer.appendChild(dot);
+}
+
+const now = new Date();
+document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).toUpperCase();
+
 function updateCountdown() {
   const now = new Date();
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
+  const midnight = new Date(); midnight.setHours(24,0,0,0);
   const diff = midnight - now;
-  const h = Math.floor(diff / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('countdown').textContent = 
-    `Refreshes in ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('countdown').textContent = `Refreshes in ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
+updateCountdown(); setInterval(updateCountdown, 1000);
 
-// READ PROGRESS
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const total = document.body.scrollHeight - window.innerHeight;
-  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  const pct = document.body.scrollHeight - window.innerHeight > 0 ? (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100 : 0;
   document.getElementById('progressBar').style.width = pct + '%';
 });
 
-// COPY CONVERSATION POINT
 function copyText(el, text) {
   navigator.clipboard.writeText(text).then(() => {
     el.classList.add('copied');
@@ -586,18 +211,20 @@ function copyText(el, text) {
   });
 }
 
-// SHARE
 function shareCard() {
   if (navigator.share) {
-    navigator.share({
-      title: 'Lumina Daily Card: The Dunning Kruger Effect',
-      text: 'Orang yang paling tidak tahu sesuatu justru paling percaya diri. Baca selengkapnya di Lumina.',
-      url: window.location.href
-    });
+    navigator.share({ title: `Lumina: ${today.title}`, text: `Today I learned about ${today.title}.`, url: window.location.href });
   } else {
     navigator.clipboard.writeText(window.location.href);
     alert('Link copied!');
   }
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
 }
 </script>
 </body>
